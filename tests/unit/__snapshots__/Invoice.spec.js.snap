@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Invoice.vue Card should have text and match snapshot 1`] = `
+<div class="container container--fluid" id="create">
+  <div class="row">
+    <div class="col col-2">
+      <div class="mx-auto v-card v-sheet theme--light" style="max-width: 250px;">
+        <div class="v-responsive v-image white--text" style="height: 250px;">
+          <div class="v-responsive__content"></div>
+        </div>
+        <div class="v-card__text text-center"><span></span></div>
+        <div class="v-card__actions">
+          <div tabindex="-1" class="v-list-item theme--light">
+            <div class="row align-center justify-end">
+              <div role="dialog" class="v-dialog__container"><button type="button" class="v-btn v-btn--flat v-btn--text theme--light v-size--x-small primary--text"><span class="v-btn__content">Create Invoice</span></button>
+                <div role="document" class="v-dialog__content" style="z-index: 0;">
+                  <div class="v-dialog v-dialog--persistent" style="max-width: 450px; display: none;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col col-10">
+      <div class="container">
+        <div class="row"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-end">
+    <div class="text-center pa-2 ma-2">
+      <ul class="v-pagination v-pagination--circle theme--light">
+        <li><button type="button" class="v-pagination__navigation v-pagination__navigation--disabled"><i aria-hidden="true" class="v-icon notranslate mdi mdi-chevron-left theme--light"></i></button></li>
+        <li><button type="button" class="v-pagination__navigation v-pagination__navigation--disabled"><i aria-hidden="true" class="v-icon notranslate mdi mdi-chevron-right theme--light"></i></button></li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Invoice.vue has a Pagination 1`] = `
+<div class="container container--fluid" id="create">
+  <div class="row">
+    <div class="col col-2">
+      <div class="mx-auto v-card v-sheet theme--light" style="max-width: 250px;">
+        <div class="v-responsive v-image white--text" style="height: 250px;">
+          <div class="v-responsive__content"></div>
+        </div>
+        <div class="v-card__text text-center"><span></span></div>
+        <div class="v-card__actions">
+          <div tabindex="-1" class="v-list-item theme--light">
+            <div class="row align-center justify-end">
+              <div role="dialog" class="v-dialog__container"><button type="button" class="v-btn v-btn--flat v-btn--text theme--light v-size--x-small primary--text"><span class="v-btn__content">Create Invoice</span></button>
+                <div role="document" class="v-dialog__content" style="z-index: 0;">
+                  <div class="v-dialog v-dialog--persistent" style="max-width: 450px; display: none;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col col-10">
+      <div class="container">
+        <div class="row"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-end">
+    <div class="text-center pa-2 ma-2">
+      <ul class="v-pagination v-pagination--circle theme--light">
+        <li><button type="button" class="v-pagination__navigation v-pagination__navigation--disabled"><i aria-hidden="true" class="v-icon notranslate mdi mdi-chevron-left theme--light"></i></button></li>
+        <li><button type="button" class="v-pagination__navigation v-pagination__navigation--disabled"><i aria-hidden="true" class="v-icon notranslate mdi mdi-chevron-right theme--light"></i></button></li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
