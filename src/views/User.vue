@@ -3,39 +3,35 @@
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="4">
         <CardComponet :elevation="elevation">
-          <div slot="title">
+          <template #title>
             <v-toolbar color="primary" dark flat>
               <v-toolbar-title>Login form</v-toolbar-title>
             </v-toolbar>
-          </div>
-          <div slot="body">
-            <v-card-text>
-              <v-form>
-                <v-text-field
-                  v-model="user.username"
-                  label="Login"
-                  name="login"
-                  prepend-icon="mdi-account"
-                  type="text"
-                ></v-text-field>
+          </template>
+          <template #body>
+            <v-form>
+              <v-text-field
+                v-model="user.username"
+                label="Login"
+                name="login"
+                prepend-icon="mdi-account"
+                type="text"
+              ></v-text-field>
 
-                <v-text-field
-                  v-model="user.password"
-                  id="password"
-                  label="Password"
-                  name="password"
-                  prepend-icon="mdi-lock"
-                  type="password"
-                ></v-text-field>
-              </v-form>
-            </v-card-text>
-          </div>
-          <div name="actions">
-            <v-card-actions>
-              <div class="flex-grow-1"></div>
-              <v-btn color="primary" @click="OnSubmit">Login</v-btn>
-            </v-card-actions>
-          </div>
+              <v-text-field
+                v-model="user.password"
+                id="password"
+                label="Password"
+                name="password"
+                prepend-icon="mdi-lock"
+                type="password"
+              ></v-text-field>
+            </v-form>
+          </template>
+          <template #actions>
+            <div class="flex-grow-1"></div>
+            <v-btn color="primary" @click="OnSubmit">Login</v-btn>
+          </template>
         </CardComponet>
       </v-col>
     </v-row>

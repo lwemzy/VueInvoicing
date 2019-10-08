@@ -2,23 +2,37 @@
   <v-container fluid id="create">
     <v-row>
       <v-col cols="4">
-        <v-card class="ma-3 pa-6" outlined tile>
-          <!-- list items -->
-          <ListItems :paginatedData="paginatedData" @ListItemClicked="getCustomerById"></ListItems>
-          <!-- end of listItems -->
-          <v-row justify="end">
-            <div class="text-center pa-2 ma-2">
-              <v-pagination
-                @next="nextPage"
-                @previous="prevPage"
-                v-model="page"
-                :length="paginatedPageCount"
-                :total-visible="4"
-                circle
-              ></v-pagination>
-            </div>
-          </v-row>
-        </v-card>
+        <div class="ma-3 pa-6">
+          <!-- <v-card class="ma-3 pa-6" outlined tile> -->
+          <!-- TODO -->
+          <!-- make card component outlined and tiled -->
+          <CardComponet>
+            <template #title>
+              <v-toolbar color="primary" dark flat>
+                <v-row justify="center">
+                  <v-toolbar-title>Customers</v-toolbar-title>
+                </v-row>
+              </v-toolbar>
+            </template>
+            <template #body>
+              <ListItems :paginatedData="paginatedData" @ListItemClicked="getCustomerById"></ListItems>
+            </template>
+            <template #actions>
+              <v-row justify="end">
+                <div class="text-center pa-2 ma-2">
+                  <v-pagination
+                    @next="nextPage"
+                    @previous="prevPage"
+                    v-model="page"
+                    :length="paginatedPageCount"
+                    :total-visible="4"
+                    circle
+                  ></v-pagination>
+                </div>
+              </v-row>
+            </template>
+          </CardComponet>
+        </div>
       </v-col>
       <v-col cols="8">
         <v-container>
@@ -94,7 +108,8 @@ export default {
   components: {
     ListItems,
     SpeedDial,
-    Form
+    Form,
+    CardComponet: () => import("../components/CardComponet")
   },
   data() {
     return {

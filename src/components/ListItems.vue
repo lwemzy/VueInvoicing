@@ -1,8 +1,10 @@
 <template>
   <v-list subheader>
-    <v-subheader class="font-weight-bold title">Customers:</v-subheader>
-    <v-divider></v-divider>
-    <v-list-item v-for="user in paginatedData" :key="user.id" @click="itemSlected(user.id)">
+    <v-list-item
+      v-for="user in paginatedData"
+      :key="user.id"
+      @click="$emit('ListItemClicked', user.id)"
+    >
       <v-list-item-avatar>
         <v-img :src="user.avatar"></v-img>
       </v-list-item-avatar>
@@ -19,15 +21,6 @@
 
 export default {
   props: ["paginatedData"],
-  name: "ListItems",
-  data() {
-    return {};
-  },
-
-  methods: {
-    itemSlected(userId) {
-      this.$emit("ListItemClicked", userId);
-    }
-  }
+  name: "ListItems"
 };
 </script>
