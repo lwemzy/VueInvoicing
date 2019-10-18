@@ -31,19 +31,26 @@
       </v-card-text>
       <v-card-actions>
         <div class="flex-grow-1"></div>
-        <v-btn color="blue darken-1" text @click="cancle">Cancel</v-btn>
-        <v-btn color="blue darken-1" text @click="submitForm">Save</v-btn>
+        <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+        <v-btn color="blue darken-1" text @click="save">Save</v-btn>
       </v-card-actions>
     </v-card>
   </v-form>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
-  props: ["formTitle", "editedCustomer"],
+  props: ["formTitle", "dialog", "editedCustomer", "editedIndex"],
   name: "Form",
   data() {
     return {
+      defaultCustomer: {
+        name: "",
+        address: "",
+        avatar: ""
+      },
       valid: true,
       nameRules: [v => !!v || "Name is required"],
       addressRules: [v => !!v || "Address is required"],
@@ -51,13 +58,34 @@ export default {
     };
   },
   methods: {
-    cancle() {
-      this.$emit("cancle", this.$refs.form);
+    ...mapActions(["newCustomer", "editCustomer"]),
+    close() {
+      this.$emit("update:dialog", false);
+      setTimeout(() => {
+        // clear modal on close
+        this.$refs.form.reset();
+        // this.editedCustomer = Object.assign({}, this.defaultCustomer);
+        this.$emit(
+          "update:editedCustomer",
+          Object.assign({}, this.defaultCustomer)
+        );
+        this.$emit("update:editedIndex", -1);
+      }, 300);
     },
-    submitForm() {
-      if (this.$refs.form.validate()) {
-        this.$emit("submitForm", this.$refs.form);
+
+    save() {
+      if (this.editedIndex > -1) {
+        // edited customer
+        this.editCustomer(this.editedCustomer);
+        this.snackbar = true;
+        this.text = "Customer Successfully Edited";
+      } else {
+        // new customer
+        this.newCustomer(this.editedCustomer);
+        this.snackbar = true;
+        this.text = "Customer Successfully Saved";
       }
+      this.close(this.$refs.form);
     }
   }
 };

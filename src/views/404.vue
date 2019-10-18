@@ -3,7 +3,7 @@
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="4">
         <CardComponet :elevation="elevation">
-          <template #title>
+          <template #haeder>
             <v-toolbar color="primary subheading" dark flat>
               <span>Oops</span>
               <div class="flex-grow-1"></div>

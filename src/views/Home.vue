@@ -2,71 +2,23 @@
   <v-container fluid id="create">
     <v-row>
       <v-col cols="4">
-        <div class="ma-3 pa-6">
-          <!-- <v-card class="ma-3 pa-6" outlined tile> -->
-          <!-- TODO -->
-          <!-- make card component outlined and tiled -->
-          <CardComponet>
-            <template #title>
-              <v-toolbar color="primary" dark flat>
-                <v-row justify="center">
-                  <v-toolbar-title>Customers</v-toolbar-title>
-                </v-row>
-              </v-toolbar>
-            </template>
-            <template #body>
-              <ListItems :paginatedData="paginatedData" @ListItemClicked="getCustomerById"></ListItems>
-            </template>
-            <template #actions>
-              <v-row justify="end">
-                <div class="text-center pa-2 ma-2">
-                  <v-pagination
-                    @next="nextPage"
-                    @previous="prevPage"
-                    v-model="page"
-                    :length="paginatedPageCount"
-                    :total-visible="4"
-                    circle
-                  ></v-pagination>
-                </div>
-              </v-row>
-            </template>
-          </CardComponet>
+        <div class="ml-3 mr-3">
+          <CustomerList :dialog.sync="dialog"></CustomerList>
         </div>
       </v-col>
       <v-col cols="8">
-        <v-container>
+        <v-container class="fill-height" fluid>
           <v-row>
             <v-col cols="12">
-              <v-row align="center" justify="center">
-                <v-avatar size="400" class="mb-4">
-                  <router-link :to="'/customer/'+getCustomer.id+'/invoice'">
-                    <v-tooltip right>
-                      <template v-slot:activator="{ on }">
-                        <v-btn color="grey lighten-1" v-on="on" dark absolute top right fab>
-                          <v-icon>mdi-eye-plus-outline</v-icon>
-                        </v-btn>
-                      </template>
-                      <span>Add Invoice</span>
-                    </v-tooltip>
-                  </router-link>
-                  <v-img :src="getCustomer.avatar" alt="avatar"></v-img>
-                </v-avatar>
+              <v-row justify="center" align="center">
+                <!-- customer component -->
+                <CustomerComponet
+                  :editedCustomer.sync="editedCustomer"
+                  :editedIndex.sync="editedIndex"
+                  :dialog.sync="dialog"
+                ></CustomerComponet>
+                <!-- end of customer component -->
               </v-row>
-
-              <v-card class="mx-auto" max-width="450" outlined tile dark color="grey darken-2">
-                <v-list-item>
-                  <v-list-item-content>
-                    <v-list-item-title class="text-center">{{getCustomer.name}}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-divider></v-divider>
-                <v-list-item>
-                  <v-list-item-content>
-                    <v-list-item-title class="text-center">Address: {{getCustomer.address}}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-card>
             </v-col>
           </v-row>
         </v-container>
@@ -77,44 +29,42 @@
       <v-dialog v-model="dialog" persistent max-width="450px">
         <!-- form -->
         <Form
+          :editedIndex.sync="editedIndex"
+          :editedCustomer.sync="editedCustomer"
           :formTitle="formTitle"
-          :editedCustomer="editedCustomer"
-          @cancle="close"
-          @submitForm="save"
+          :dialog.sync="dialog"
         ></Form>
         <!-- end of form -->
       </v-dialog>
     </v-row>
     <!-- speed dial -->
-    <SpeedDial
+    <!-- <SpeedDial
       :dialog="dialog"
       @displayDialog="displayForm"
       :getCustomer="getCustomer"
       @editCustomer="editItem"
       @deleteItem="deleteCustomer"
-    ></SpeedDial>
+    ></SpeedDial>-->
     <!-- speed dial -->
     <v-snackbar bottom right v-model="snackbar" :timeout="timeout">{{ text }}</v-snackbar>
   </v-container>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import ListItems from "@/components/ListItems";
-import SpeedDial from "@/components/SpeedDial";
+import { mapActions } from "vuex";
+// import SpeedDial from "@/components/SpeedDial";
 import Form from "@/components/Form";
 
 export default {
   components: {
-    ListItems,
-    SpeedDial,
+    // SpeedDial,
     Form,
-    CardComponet: () => import("../components/CardComponet")
+    CustomerComponet: () => import("../components/CustomerView"),
+    CustomerList: () => import("../components/CustomerList")
   },
   data() {
     return {
       dialog: false,
-      page: 1,
       pageCount: 0,
       itemsPerPage: 8,
       editedIndex: -1,
@@ -125,86 +75,18 @@ export default {
         name: "",
         address: "",
         avatar: ""
-      },
-      defaultCustomer: {
-        name: "",
-        address: "",
-        avatar: ""
       }
     };
   },
 
   computed: {
-    ...mapGetters(["allCustomers", "getCustomer", "isLoaded"]),
     formTitle() {
       return this.editedIndex === -1 ? "New Customer" : "Edit Customer";
-    },
-    paginatedData() {
-      const start = this.pageCount * this.itemsPerPage;
-      const end = start + this.itemsPerPage;
-      if (this.allCustomers.items && this.allCustomers.items.length)
-        return this.allCustomers.items.slice(start, end);
-    },
-    paginatedPageCount() {
-      if (this.isLoaded) {
-        let l = this.allCustomers.items.length;
-        let s = this.itemsPerPage;
-        return Math.ceil(l / s);
-      }
-      return 0;
     }
   },
 
   methods: {
-    ...mapActions([
-      "getAllCustomer",
-      "getCustomerById",
-      "deleteCustomer",
-      "newCustomer",
-      "editCustomer"
-    ]),
-    editItem(item) {
-      this.editedIndex = this.allCustomers.items.findIndex(
-        item => item.id === item.id
-      );
-      this.editedCustomer = Object.assign({}, item);
-      this.dialog = true;
-    },
-    close(form) {
-      this.dialog = false;
-      setTimeout(() => {
-        // clear modal on close
-        form.reset();
-        this.editedCustomer = Object.assign({}, this.defaultCustomer);
-        this.editedIndex = -1;
-      }, 300);
-    },
-
-    save(form) {
-      if (this.editedIndex > -1) {
-        // edited customer
-        this.editCustomer(this.editedCustomer);
-        this.snackbar = true;
-        this.text = "Customer Successfully Edited";
-      } else {
-        // new customer
-        this.newCustomer(this.editedCustomer);
-        this.snackbar = true;
-        this.text = "Customer Successfully Saved";
-      }
-      this.close(form);
-    },
-
-    nextPage() {
-      this.pageCount++;
-    },
-    prevPage() {
-      this.pageCount--;
-    },
-
-    displayForm() {
-      this.dialog = true;
-    }
+    ...mapActions(["getAllCustomer"])
   },
 
   created() {
