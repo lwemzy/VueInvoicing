@@ -17,8 +17,7 @@
       <v-row justify="end">
         <div class="text-center pa-2 ma-2">
           <v-pagination
-            @next="nextPage"
-            @previous="prevPage"
+            @input="btnInput"
             v-model="page"
             :length="paginatedPageCount"
             :total-visible="4"
@@ -62,11 +61,9 @@ export default {
     }
   },
   methods: {
-    nextPage() {
-      this.pageCount++;
-    },
-    prevPage() {
-      this.pageCount--;
+    btnInput(number) {
+      this.page = number;
+      this.pageCount = number - 1;
     }
   }
 };

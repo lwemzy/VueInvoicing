@@ -1,13 +1,6 @@
 import axios from 'axios';
 
 const actions = {
-  async customer({ commit }, id) {
-    const response = await axios.get(
-      `http://5d7bc0c06b8ef80014b296e9.mockapi.io/sp5/api/v1/customer/${id}`
-    );
-    commit('CUSTOMER', response.data);
-  },
-
   async getInvoices({ commit }, id) {
     const response = await axios.get(
       `http://5d7bc0c06b8ef80014b296e9.mockapi.io/sp5/api/v1/customer/${id}/invoice`

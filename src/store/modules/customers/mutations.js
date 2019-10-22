@@ -3,7 +3,15 @@ const mutations = {
     state.customers = payload;
     state.customer = payload.items[0];
   },
-  CUSTOMER: (state, payload) => (state.customer = payload),
+  // CUSTOMER: (state, payload) => (state.customer = payload),
+  CUSTOMER: (state, payload) => {
+    const customerIndex = state.customers.items.findIndex(
+      item => item.id === payload
+    );
+    if (customerIndex != -1) {
+      state.customer = state.customers.items[customerIndex];
+    }
+  },
   DELETE_CUSTOMER: (state, payload) => {
     const customerIndex = state.customers.items.findIndex(
       item => item.id === payload
