@@ -1,7 +1,15 @@
 const mutations = {
   CUSTOMER: (state, payload) => (state.customer = payload),
   INVOICES: (state, payload) => (state.invoices = payload),
-  INVOICE_BY_ID: (state, payload) => (state.invoice = payload),
+  INVOICE_BY_ID: (state, payload) => {
+    const invoiceIndex = state.invoices.findIndex(
+      item => item.id === payload.toString()
+    );
+
+    if (invoiceIndex != -1) {
+      state.invoice = state.invoices[invoiceIndex];
+    }
+  },
   NEW_INVOICES: (state, payload) => state.invoices.push(payload),
   DELETE_INVOICES: (state, payload) =>
     (state.invoices = state.invoices.filter(

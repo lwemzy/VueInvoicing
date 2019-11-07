@@ -1,5 +1,5 @@
 <template>
-  <v-form ref="form" v-model="valid" lazy-validation>
+  <v-form ref="form" v-model="validForm" lazy-validation>
     <v-card class="pa-2">
       <v-card-title>
         <span class="headline">{{ formTitle }}</span>
@@ -57,6 +57,11 @@
 export default {
   name: "InvoiceCard",
   props: ["editedInvoice", "formTitle", "menu", "invoiceRules", "valid"],
+  data() {
+    return {
+      validForm: this.valid
+    };
+  },
   methods: {
     close() {
       this.$emit("close");

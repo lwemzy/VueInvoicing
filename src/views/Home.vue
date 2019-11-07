@@ -51,7 +51,6 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
 // import SpeedDial from "@/components/SpeedDial";
 import Form from "@/components/Form";
 
@@ -83,14 +82,6 @@ export default {
     formTitle() {
       return this.editedIndex === -1 ? "New Customer" : "Edit Customer";
     }
-  },
-
-  methods: {
-    ...mapActions(["getAllCustomer"])
-  },
-
-  created() {
-    this.getAllCustomer();
   }
 };
 </script>

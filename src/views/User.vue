@@ -39,10 +39,11 @@
 </template>
 
 <script>
-// import CardComponet from '@/components/CardComponent'
+import CardComponet from "../components/CardComponet";
+
 export default {
   components: {
-    CardComponet: () => import("../components/CardComponet")
+    CardComponet
   },
   data: () => ({
     drawer: null,
@@ -56,7 +57,6 @@ export default {
   methods: {
     OnSubmit(evt) {
       evt.preventDefault();
-      console.log(this.user);
     }
   }
 };

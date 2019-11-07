@@ -18,10 +18,19 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "App",
   data: () => ({
     //
-  })
+  }),
+  methods: {
+    ...mapActions(["getAllCustomer"])
+  },
+
+  created() {
+    this.getAllCustomer();
+  }
 };
 </script>

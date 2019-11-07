@@ -1,40 +1,27 @@
-import axios from 'axios';
+import api from '../../../api/index';
 
 const actions = {
   async getInvoices({ commit }, id) {
-    const response = await axios.get(
-      `http://5d7bc0c06b8ef80014b296e9.mockapi.io/sp5/api/v1/customer/${id}/invoice`
-    );
-    commit('INVOICES', response.data);
+    commit('INVOICES', (await api.getInvoices(id)).data);
   },
-  async getInvoiceById({ commit }, obj) {
-    const response = await axios.get(
-      `http://5d7bc0c06b8ef80014b296e9.mockapi.io/sp5/api/v1/customer/${obj.customerId}/invoice/${obj.invoiceId}`
-    );
-    commit('INVOICE_BY_ID', response.data);
+
+  async getInvoiceById({ commit }, id) {
+    commit('INVOICE_BY_ID', id);
   },
 
   async newInvoice({ commit }, invoice) {
-    const response = await axios.post(
-      `http://5d7bc0c06b8ef80014b296e9.mockapi.io/sp5/api/v1/customer/${invoice.customerId}/invoice`,
-      invoice
-    );
-    commit('NEW_INVOICES', response.data);
+    commit('NEW_INVOICES', (await api.newInvoice(invoice)).data);
   },
 
   async deleteInvoice({ commit }, obj) {
-    await axios.delete(
-      `http://5d7bc0c06b8ef80014b296e9.mockapi.io/sp5/api/v1/customer/${obj.customerId}/invoice/${obj.id}`
-    );
+    {
+      await api.deleteInvoice(obj);
+    }
     commit('DELETE_INVOICES', obj.id);
   },
 
   async editInvoice({ commit }, obj) {
-    await axios.put(
-      `http://5d7bc0c06b8ef80014b296e9.mockapi.io/sp5/api/v1/customer/${obj.customerId}/invoice/${obj.id}`,
-      obj
-    );
-    commit('EDIT_INVOICES', obj);
+    commit('EDIT_INVOICES', (await api.editInvoice(obj)).data);
   }
 };
 

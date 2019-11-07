@@ -76,10 +76,10 @@
     <v-row justify="end">
       <div class="text-center pa-2 ma-2">
         <v-pagination
-          @next="nextPage"
-          @previous="prevPage"
+          @input="btnInput"
           v-model="page"
           :length="paginatedPageCount"
+          :total-visible="4"
           circle
         ></v-pagination>
       </div>
@@ -148,7 +148,6 @@ export default {
   },
   methods: {
     ...mapActions([
-      "customer",
       "getInvoices",
       "newInvoice",
       "deleteInvoice",
@@ -189,11 +188,9 @@ export default {
       this.close();
     },
 
-    nextPage() {
-      this.pageCount++;
-    },
-    prevPage() {
-      this.pageCount--;
+    btnInput(number) {
+      this.page = number;
+      this.pageCount = number - 1;
     }
   },
   filters: {
@@ -202,7 +199,6 @@ export default {
     }
   },
   created() {
-    this.customer(this.id);
     this.getInvoices(this.id);
   }
 };

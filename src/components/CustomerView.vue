@@ -39,7 +39,6 @@ export default {
       this.$emit("update:dialog", !this.dialog);
     },
     viewInvoice(id) {
-      console.log(id);
       this.$router.push(`/customer/${id}/invoice`);
     }
   }

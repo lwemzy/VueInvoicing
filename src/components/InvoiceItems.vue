@@ -8,7 +8,7 @@
         fab
         color="grey"
         v-on="on"
-        @click="getInvoiceItems({customerId, invoiceId}), getInvoiceById({customerId, invoiceId})"
+        @click="getInvoiceItems({customerId, invoiceId}), getInvoiceById(invoiceId)"
       >
         <v-icon>mdi-eye-plus-outline</v-icon>
       </v-btn>
@@ -309,7 +309,6 @@ export default {
           const product = Object.assign(this.editedItem, {
             invoiceId: this.invoiceId
           });
-          console.log(product);
         } else {
           const product = Object.assign(this.editedItem, {
             invoiceId: this.invoiceId
