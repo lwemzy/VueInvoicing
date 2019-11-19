@@ -34,13 +34,15 @@
 // change toolbar
 
 import { mapGetters } from "vuex";
+import CardComponet from "../components/CardComponet";
+import ListItems from "../components/ListItems";
 
 export default {
   name: "customer-list",
   props: ["dialog"],
   components: {
-    CardComponet: () => import("../components/CardComponet"),
-    ListItems: () => import("../components/ListItems")
+    CardComponet,
+    ListItems
   },
   data() {
     return {

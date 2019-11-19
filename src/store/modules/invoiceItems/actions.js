@@ -1,26 +1,20 @@
-import axios from 'axios';
+import api from '../../../api/index';
+
 const mutations = {
-  async getInvoiceItems({ commit }, obj) {
-    const items = await axios.get(
-      `http://5d7bc0c06b8ef80014b296e9.mockapi.io/sp5/api/v1/customer/${obj.customerId}/invoice/${obj.invoiceId}/invoice_item`
-    );
-    commit('ALL_INVOICE_ITEMS', items.data);
-  },
+	async getInvoiceItems({ commit }, obj) {
+		commit('ALL_INVOICE_ITEMS', (await api.getInvoiceItem(obj)).data);
+	},
 
-  async addInvoiceItem({ commit }, obj) {
-    const response = await axios.post(
-      `http://5d7bc0c06b8ef80014b296e9.mockapi.io/sp5/api/v1/customer/${obj.customerId}/invoice/${obj.product.invoiceId}/invoice_item`,
-      obj.product
-    );
-    commit('ADD_INVOICE_ITEM', response.data);
-  },
+	async addInvoiceItem({ commit }, obj) {
+		commit('ADD_INVOICE_ITEM', (await api.addInvoiceItem(obj)).data);
+	},
 
-  async deleteInvoiceItem({ commit }, obj) {
-    await axios.delete(
-      `http://5d7bc0c06b8ef80014b296e9.mockapi.io/sp5/api/v1//customer/${obj.customerId}/invoice/${obj.invoiceId}/invoice_item/${obj.id}`
-    );
-    commit('DELETE_INVOICE_ITEM', obj.id);
-  }
+	async deleteInvoiceItem({ commit }, obj) {
+		{
+			await api.deleteInvoiceItem(obj);
+		}
+		commit('DELETE_INVOICE_ITEM', obj.id);
+	}
 };
 
 export default mutations;

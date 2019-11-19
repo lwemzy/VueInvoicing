@@ -18,12 +18,13 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import CardComponet from './CardComponet';
 
 export default {
   name: "customer-view",
   props: ["editedIndex", "editedCustomer", "dialog"],
   components: {
-    CardComponet: () => import("../components/CardComponet")
+    CardComponet
   },
   computed: {
     ...mapGetters(["getCustomer", "allCustomers"])

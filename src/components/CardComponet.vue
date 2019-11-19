@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="0" outlined>
+  <v-card elevation="elevation" outlined>
     <slot name="haeder"></slot>
     <v-card-title>
       <slot name="title"></slot>
@@ -19,6 +19,11 @@
 <script>
 export default {
   name: "card-component",
-  props: ["elevation"]
+  props: {
+    elevation: {
+      type: Number,
+      default: 0
+    }
+  }
 };
 </script>
