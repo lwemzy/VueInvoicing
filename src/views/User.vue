@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import CardComponet from "../components/CardComponet";
+import CardComponet from '@/components/CardComponet';
 
 export default {
   components: {
@@ -47,7 +47,7 @@ export default {
   },
   data: () => ({
     drawer: null,
-    elevation: "elevation-12",
+    elevation: 'elevation-12',
     user: {
       username: null,
       password: null

@@ -52,14 +52,16 @@
 
 <script>
 // import SpeedDial from "@/components/SpeedDial";
-import Form from "@/components/Form";
+import Form from '@/components/Form';
+import CustomerComponet from '@/components/CustomerView';
+import CustomerList from '@/components/CustomerList';
 
 export default {
   components: {
     // SpeedDial,
     Form,
-    CustomerComponet: () => import("../components/CustomerView"),
-    CustomerList: () => import("../components/CustomerList")
+    CustomerComponet,
+    CustomerList
   },
   data() {
     return {
@@ -68,30 +70,30 @@ export default {
       itemsPerPage: 8,
       editedIndex: -1,
       snackbar: false,
-      text: "",
+      text: '',
       timeout: 2000,
       editedCustomer: {
-        name: "",
-        address: "",
-        avatar: ""
+        name: '',
+        address: '',
+        avatar: ''
       }
     };
   },
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New Customer" : "Edit Customer";
+      return this.editedIndex === -1 ? 'New Customer' : 'Edit Customer';
     }
   }
 };
 </script>
 
 <style scoped>
-#create .v-speed-dial {
+/* #create .v-speed-dial {
   position: absolute;
 }
 
 #create .v-btn--floating {
   position: relative;
-}
+} */
 </style>

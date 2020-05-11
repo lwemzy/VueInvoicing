@@ -17,19 +17,29 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex';
 
 export default {
-  name: "App",
+  name: 'App',
   data: () => ({
     //
   }),
   methods: {
-    ...mapActions(["getAllCustomer"])
+    ...mapActions(['getAllCustomer', 'getCustomerById'])
   },
-
   created() {
+    // console.log(this.$route.params);
+    // Simple fix
+    // TODO
+    // getcustomer from api call
     this.getAllCustomer();
+    setTimeout(() => {
+      if (this.$route.params.id) {
+        this.getCustomerById(this.$route.params.id);
+      } else {
+        this.getCustomerById(0);
+      }
+    }, 2000);
   }
 };
 </script>

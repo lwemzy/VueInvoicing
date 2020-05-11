@@ -55,8 +55,8 @@
 
 <script>
 export default {
-  name: "InvoiceCard",
-  props: ["editedInvoice", "formTitle", "menu", "invoiceRules", "valid"],
+  name: 'InvoiceCard',
+  props: ['editedInvoice', 'formTitle', 'menu', 'invoiceRules', 'valid'],
   data() {
     return {
       validForm: this.valid
@@ -64,11 +64,11 @@ export default {
   },
   methods: {
     close() {
-      this.$emit("close");
+      this.$emit('close');
     },
     save() {
       if (this.$refs.form.validate()) {
-        this.$emit("save");
+        this.$emit('save');
       }
     }
   }

@@ -4,10 +4,14 @@
       <v-col cols="2">
         <!-- customer card -->
         <v-card class="mx-auto" max-width="250">
-          <v-img class="white--text" height="250px" :src="getCustomer.avatar"></v-img>
+          <v-img
+            class="white--text"
+            height="250px"
+            :src="getCustomer.avatar"
+          ></v-img>
 
           <v-card-text class="text-center">
-            <span>{{getCustomer.name}}</span>
+            <span>{{ getCustomer.name }}</span>
           </v-card-text>
 
           <v-card-actions>
@@ -16,7 +20,9 @@
                 <!-- create invoice modal -->
                 <v-dialog v-model="dialog" persistent max-width="450px">
                   <template v-slot:activator="{ on }">
-                    <v-btn text color="primary" x-small v-on="on">Create Invoice</v-btn>
+                    <v-btn text color="primary" x-small v-on="on"
+                      >Create Invoice</v-btn
+                    >
                   </template>
                   <!-- invoice card -->
                   <InvoiceCard
@@ -41,18 +47,30 @@
           <v-row>
             <v-col cols="3" v-for="invoice in paginatedData" :key="invoice.id">
               <v-card max-width="200" class="mx-auto pa-2">
-                <v-card-title class="subtitle-1">Invoice No: {{invoice.invoice_no}}</v-card-title>
+                <v-card-title class="subtitle-1"
+                  >Invoice No: {{ invoice.invoice_no }}</v-card-title
+                >
                 <v-card-text>
-                  Created At: {{invoice.createdAt | formatDate}}
+                  Created At: {{ invoice.createdAt | formatDate }}
                   <br />
-                  Due Date: {{invoice.due_date | formatDate}}
+                  Due Date: {{ invoice.due_date | formatDate }}
                 </v-card-text>
                 <v-card-actions>
                   <v-row align="center" justify="center">
                     <!-- invoice items modal -->
-                    <InvoiceItems :customerId="id" :invoiceId="invoice.id"></InvoiceItems>
+                    <InvoiceItems
+                      :customerId="id"
+                      :invoiceId="invoice.id"
+                    ></InvoiceItems>
                     <!-- invoice items modal -->
-                    <v-btn class="ma-1" outlined small fab color="grey" @click="editItem(invoice)">
+                    <v-btn
+                      class="ma-1"
+                      outlined
+                      small
+                      fab
+                      color="grey"
+                      @click="editItem(invoice)"
+                    >
                       <v-icon>mdi-pencil</v-icon>
                     </v-btn>
                     <v-btn
@@ -61,7 +79,7 @@
                       small
                       fab
                       color="grey"
-                      @click="deleteInvoice({customerId: id, id:invoice.id})"
+                      @click="deleteInvoice({ customerId: id, id: invoice.id })"
                     >
                       <v-icon>mdi-delete</v-icon>
                     </v-btn>
@@ -74,7 +92,7 @@
       </v-col>
     </v-row>
     <v-row justify="end">
-      <div class="text-center pa-2 ma-2">
+      <div class="text-center pa-2 ma-2" v-if="paginatedPageCount">
         <v-pagination
           @input="btnInput"
           v-model="page"
@@ -84,20 +102,22 @@
         ></v-pagination>
       </div>
     </v-row>
-    <v-snackbar bottom right v-model="snackbar" :timeout="timeout">{{ text }}</v-snackbar>
+    <v-snackbar bottom right v-model="snackbar" :timeout="timeout">{{
+      text
+    }}</v-snackbar>
   </v-container>
 </template>
 
 <script>
-import format from "date-fns/format";
+import format from 'date-fns/format';
 
-import { mapActions, mapGetters } from "vuex";
-import InvoiceItems from "../components/InvoiceItems";
-import InvoiceCard from "../components/InvoiceCard";
+import { mapActions, mapGetters } from 'vuex';
+import InvoiceItems from '@/components/InvoiceItems';
+import InvoiceCard from '@/components/InvoiceCard';
 
 export default {
-  name: "Invoice",
-  props: ["id"],
+  name: 'Invoice',
+  props: ['id'],
   components: {
     InvoiceItems,
     InvoiceCard
@@ -105,12 +125,12 @@ export default {
   data() {
     return {
       snackbar: false,
-      text: "",
+      text: '',
       timeout: 2000,
       valid: true,
       invoiceRules: [
-        v => !!v || "Address is required",
-        v => /^\d+$/.test(v) || "Numbe a number"
+        v => !!v || 'Address is required',
+        v => /^\d+$/.test(v) || 'Numbe a number'
       ],
       page: 1,
       pageCount: 0,
@@ -122,18 +142,18 @@ export default {
       editedIndex: -1,
       editedInvoice: {
         due_date: new Date().toISOString().substr(0, 10),
-        invoice_no: ""
+        invoice_no: ''
       },
       defaultInvoice: {
         due_date: new Date().toISOString().substr(0, 10),
-        invoice_no: ""
+        invoice_no: ''
       }
     };
   },
   computed: {
-    ...mapGetters(["getCustomer", "allInvoices"]),
+    ...mapGetters(['getCustomer', 'allInvoices', 'allCustomers']),
     formTitle() {
-      return this.editedIndex === -1 ? "New Invoice" : "Edit Invoice";
+      return this.editedIndex === -1 ? 'New Invoice' : 'Edit Invoice';
     },
     paginatedData() {
       const start = this.pageCount * this.itemsPerPage;
@@ -148,10 +168,10 @@ export default {
   },
   methods: {
     ...mapActions([
-      "getInvoices",
-      "newInvoice",
-      "deleteInvoice",
-      "editInvoice"
+      'getInvoices',
+      'newInvoice',
+      'deleteInvoice',
+      'editInvoice'
     ]),
     editItem(item) {
       this.editedIndex = this.allInvoices.findIndex(val => val.id === item.id);
@@ -175,7 +195,7 @@ export default {
         });
         this.editInvoice(editedInvoice);
         this.snackbar = true;
-        this.text = "Invoice Successfully Edited";
+        this.text = 'Invoice Successfully Edited';
       } else {
         // new invoice
         const invoice = Object.assign(this.editedInvoice, {
@@ -183,7 +203,7 @@ export default {
         });
         this.newInvoice(invoice);
         this.snackbar = true;
-        this.text = "Invoice Successfully Saved";
+        this.text = 'Invoice Successfully Saved';
       }
       this.close();
     },
@@ -195,10 +215,13 @@ export default {
   },
   filters: {
     formatDate(date) {
-      return format(new Date(date), "yyyy-MM-dd");
+      return format(new Date(date), 'yyyy-MM-dd');
     }
   },
   created() {
+    //TODO
+    // Dont use a props
+    //const { id }  = this.$route.params
     this.getInvoices(this.id);
   }
 };

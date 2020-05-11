@@ -190,11 +190,11 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: "InvoiceItems",
-  props: ["customerId", "invoiceId"],
+  name: 'InvoiceItems',
+  props: ['customerId', 'invoiceId'],
   data() {
     return {
       dialog2: false,
@@ -203,54 +203,54 @@ export default {
       widgets: false,
       dialog3: false,
       snackbar: false,
-      text: "",
+      text: '',
       timeout: 2000,
       valid: true,
       qtyRules: [
-        v => !!v || "Field is required",
-        v => /^\d+$/.test(v) || "Field must be a number"
+        v => !!v || 'Field is required',
+        v => /^\d+$/.test(v) || 'Field must be a number'
       ],
       costRules: [
-        v => !!v || "Field is required",
-        v => /^-?\d*(\.\d+)?$/.test(v) || "Field must be a number"
+        v => !!v || 'Field is required',
+        v => /^-?\d*(\.\d+)?$/.test(v) || 'Field must be a number'
       ],
       headers: [
         {
-          text: "Invoice Items",
-          align: "left",
+          text: 'Invoice Items',
+          align: 'left',
           sortable: false,
-          value: "item_name",
+          value: 'item_name',
           width: 300
         },
-        { text: "Quantity", sortable: false, value: "quantity" },
-        { text: "Unit Price", sortable: false, value: "item_price" },
-        { text: "Price", sortable: false, value: "price" },
-        { text: "", value: "action", sortable: false }
+        { text: 'Quantity', sortable: false, value: 'quantity' },
+        { text: 'Unit Price', sortable: false, value: 'item_price' },
+        { text: 'Price', sortable: false, value: 'price' },
+        { text: '', value: 'action', sortable: false }
       ],
       editedIndex: -1,
       editedItem: {
-        quantity: "",
-        item_price: "",
-        item_name: ""
+        quantity: '',
+        item_price: '',
+        item_name: ''
       },
       defaultItem: {
-        quantity: "",
-        item_price: "",
-        item_name: ""
+        quantity: '',
+        item_price: '',
+        item_name: ''
       }
     };
   },
   computed: {
-    ...mapGetters(["AllItems", "invoiceById", "getCustomer", "allProducts"]),
+    ...mapGetters(['AllItems', 'invoiceById', 'getCustomer', 'allProducts']),
     formTitle() {
-      return this.editedIndex === -1 ? "Add Product" : "Edit Item";
+      return this.editedIndex === -1 ? 'Add Product' : 'Edit Item';
     },
     getProduct() {
       return this.allProducts.map(val => val.product_name);
     },
     productPrice() {
       return (this.editedItem.item_price =
-        this.editedItem.item_name !== ""
+        this.editedItem.item_name !== ''
           ? this.allProducts.find(
               val => val.product_name === this.editedItem.item_name
             ).product_price
@@ -278,15 +278,15 @@ export default {
   },
   methods: {
     ...mapActions([
-      "getInvoiceItems",
-      "getInvoiceById",
-      "deleteInvoiceItem",
-      "getAllProducts",
-      "addInvoiceItem"
+      'getInvoiceItems',
+      'getInvoiceById',
+      'deleteInvoiceItem',
+      'getAllProducts',
+      'addInvoiceItem'
     ]),
 
     deleteItem(item) {
-      confirm("Are you sure you want to delete this item?") &&
+      confirm('Are you sure you want to delete this item?') &&
         this.deleteInvoiceItem({
           customerId: this.customerId,
           invoiceId: this.invoiceId,
@@ -315,7 +315,7 @@ export default {
           });
           this.addInvoiceItem({ product, customerId: this.customerId });
           this.snackbar = true;
-          this.text = "Invoice Item Successfully Saved";
+          this.text = 'Invoice Item Successfully Saved';
         }
         this.close();
       }

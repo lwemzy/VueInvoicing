@@ -17,27 +17,27 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions } from 'vuex';
 import CardComponet from './CardComponet';
 
 export default {
-  name: "customer-view",
-  props: ["editedIndex", "editedCustomer", "dialog"],
+  name: 'customer-view',
+  props: ['editedIndex', 'editedCustomer', 'dialog'],
   components: {
     CardComponet
   },
   computed: {
-    ...mapGetters(["getCustomer", "allCustomers"])
+    ...mapGetters(['getCustomer', 'allCustomers'])
   },
   methods: {
-    ...mapActions(["deleteCustomer"]),
+    ...mapActions(['deleteCustomer']),
     editItem(item) {
       const index = this.allCustomers.items.findIndex(
         item => item.id === item.id
       );
-      this.$emit("update:editedIndex", index);
-      this.$emit("update:editedCustomer", Object.assign({}, item));
-      this.$emit("update:dialog", !this.dialog);
+      this.$emit('update:editedIndex', index);
+      this.$emit('update:editedCustomer', Object.assign({}, item));
+      this.$emit('update:dialog', !this.dialog);
     },
     viewInvoice(id) {
       this.$router.push(`/customer/${id}/invoice`);

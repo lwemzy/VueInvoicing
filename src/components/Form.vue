@@ -39,37 +39,37 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex';
 
 export default {
-  props: ["formTitle", "dialog", "editedCustomer", "editedIndex"],
-  name: "Form",
+  props: ['formTitle', 'dialog', 'editedCustomer', 'editedIndex'],
+  name: 'Form',
   data() {
     return {
       defaultCustomer: {
-        name: "",
-        address: "",
-        avatar: ""
+        name: '',
+        address: '',
+        avatar: ''
       },
       valid: true,
-      nameRules: [v => !!v || "Name is required"],
-      addressRules: [v => !!v || "Address is required"],
-      avatarRules: [v => !!v || "Avatar is required"]
+      nameRules: [v => !!v || 'Name is required'],
+      addressRules: [v => !!v || 'Address is required'],
+      avatarRules: [v => !!v || 'Avatar is required']
     };
   },
   methods: {
-    ...mapActions(["newCustomer", "editCustomer"]),
+    ...mapActions(['newCustomer', 'editCustomer']),
     close() {
-      this.$emit("update:dialog", false);
+      this.$emit('update:dialog', false);
       setTimeout(() => {
         // clear modal on close
         this.$refs.form.reset();
         // this.editedCustomer = Object.assign({}, this.defaultCustomer);
         this.$emit(
-          "update:editedCustomer",
+          'update:editedCustomer',
           Object.assign({}, this.defaultCustomer)
         );
-        this.$emit("update:editedIndex", -1);
+        this.$emit('update:editedIndex', -1);
       }, 300);
     },
 
@@ -78,12 +78,12 @@ export default {
         // edited customer
         this.editCustomer(this.editedCustomer);
         this.snackbar = true;
-        this.text = "Customer Successfully Edited";
+        this.text = 'Customer Successfully Edited';
       } else {
         // new customer
         this.newCustomer(this.editedCustomer);
         this.snackbar = true;
-        this.text = "Customer Successfully Saved";
+        this.text = 'Customer Successfully Saved';
       }
       this.close(this.$refs.form);
     }

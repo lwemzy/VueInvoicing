@@ -25,10 +25,17 @@
 </template>
 
 <script>
+import CardComponet from '@/components/CardComponet';
+
 export default {
   components: {
-    CardComponet: () => import("../components/CardComponet")
+    CardComponet
   },
-  name: "404"
+  name: '404',
+  data() {
+    return {
+      elevation: 4
+    };
+  }
 };
 </script>

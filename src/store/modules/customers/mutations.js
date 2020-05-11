@@ -1,15 +1,19 @@
 const mutations = {
   CUSTOMERS: (state, payload) => {
     state.customers = payload;
-    state.customer = payload.items[0];
+    // state.customer = payload.items[0];
   },
   // CUSTOMER: (state, payload) => (state.customer = payload),
   CUSTOMER: (state, payload) => {
-    const customerIndex = state.customers.items.findIndex(
-      item => item.id === payload
-    );
-    if (customerIndex != -1) {
-      state.customer = state.customers.items[customerIndex];
+    if (payload > 0) {
+      const customerIndex = state.customers.items.findIndex(
+        item => item.id === payload
+      );
+      if (customerIndex != -1) {
+        state.customer = state.customers.items[customerIndex];
+      }
+    } else {
+      state.customer = state.customers.items[payload];
     }
   },
   DELETE_CUSTOMER: (state, payload) => {
