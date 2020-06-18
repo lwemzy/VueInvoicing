@@ -1,6 +1,10 @@
 <template>
 	<v-list subheader>
-		<v-list-item v-for="user in paginatedData" :key="user.id" @click="getCustomerById(user.id)">
+		<v-list-item
+			v-for="user in paginatedData"
+			:key="user.id"
+			@click="getCustomerById(user.id)"
+		>
 			<v-list-item-avatar>
 				<v-img :src="user.avatar"></v-img>
 			</v-list-item-avatar>
@@ -27,10 +31,11 @@ export default {
 			const end = start + this.itemsPerPage;
 			if (this.allCustomers.items && this.allCustomers.items.length)
 				return this.allCustomers.items.slice(start, end);
-		}
+			return null;
+		},
 	},
 	methods: {
-		...mapActions(['getCustomerById'])
-	}
+		...mapActions(['getCustomerById']),
+	},
 };
 </script>

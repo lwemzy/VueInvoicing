@@ -1,6 +1,6 @@
 const state = {
-  customers: [],
-  customer: []
+	customers: [],
+	customer: [],
 };
 
 export default state;
